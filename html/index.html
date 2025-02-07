@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Data Analyzer</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script> <!-- FontAwesome -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Weather Data Analyzer</h1>
+        <h1>🌥️ Weather Data Analyzer</h1>
         <input type="text" id="cityInput" placeholder="Enter city name">
         <button onclick="analyzeWeather()">Analyze Weather</button>
-        <p id="status"></p>
-        <div id="weatherDetails"></div>
-        <canvas id="weatherChart"></canvas>
+        <div id="weatherOutput"></div>
     </div>
-    <script src="script.js"></script>
+
+    <script src="app.js"></script>
 </body>
 </html>

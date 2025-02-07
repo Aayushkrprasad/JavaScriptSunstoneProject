@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     const apiKey = "446cab05347ec8dfe54230c7f7897cfc";
 
-    window.analyzeWeather = async function() {
-        const city = document.getElementById("cityInput").value;
+    window.analyzeWeather = async function () {
+        const city = document.getElementById("cityInput").value.trim();
+        const output = document.getElementById("weatherOutput");
+
         if (!city) {
-            document.getElementById("weatherOutput").innerText = "Please enter a city name.";
+            output.innerText = "Please enter a city name.";
             return;
         }
 
@@ -15,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             if (data.cod !== 200) {
-                document.getElementById("weatherOutput").innerText = `Error: ${data.message}`;
+                output.innerText = `Error: ${data.message}`;
                 return;
             }
 
@@ -23,36 +25,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const windSpeed = data.wind.speed;
             const weatherDescription = data.weather[0].description;
 
-            document.getElementById("weatherOutput").innerHTML = `
-                Temperature: ${temp}°C<br>
-                Humidity: ${humidity}%<br>
-                Pressure: ${pressure} hPa<br>
-                Wind Speed: ${windSpeed} m/s<br>
-                Weather: ${weatherDescription}
+            output.innerHTML = `
+                <h2>${city.toUpperCase()}</h2>
+                <div class="weather-detail"><i class="fas fa-thermometer-half"></i> Temperature <strong>${temp}°C</strong></div>
+                <div class="weather-detail"><i class="fas fa-tint"></i> Humidity <strong>${humidity}%</strong></div>
+                <div class="weather-detail"><i class="fas fa-gauge-high"></i> Pressure <strong>${pressure} hPa</strong></div>
+                <div class="weather-detail"><i class="fas fa-wind"></i> Wind Speed <strong>${windSpeed} m/s</strong></div>
+                <div class="weather-detail"><i class="fas fa-cloud"></i> Weather <strong>${weatherDescription}</strong></div>
             `;
-
-            visualizeData(temp, humidity, pressure, windSpeed);
         } catch (error) {
-            document.getElementById("weatherOutput").innerText = "Failed to fetch data.";
+            output.innerText = "Failed to fetch data.";
         }
-    }
-
-    function visualizeData(temp, humidity, pressure, windSpeed) {
-        const ctx = document.getElementById("weatherChart").getContext("2d");
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: ["Temperature", "Humidity", "Pressure", "Wind Speed"],
-                datasets: [{
-                    label: "Weather Data",
-                    data: [temp, humidity, pressure, windSpeed],
-                    backgroundColor: ["red", "blue", "green", "purple"],
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-    }
+    };
 });

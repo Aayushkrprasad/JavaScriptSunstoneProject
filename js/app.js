@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const apiKey = "446cab05347ec8dfe54230c7f7897cfc";
+    const apiKey = "API-KEY";
 
     window.analyzeWeather = async function () {
         const city = document.getElementById("cityInput").value.trim();
